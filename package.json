@@ -1,0 +1,17 @@
+{
+  "name": "to-do-app-main",
+  "version": "1.0.0",
+  "description": "This is a simple Todo App developed using AngularJS, HTML, and CSS. The app allows users to manage their tasks and keep track of their to-do list. # live : https://harshiljo.github.io/TO-DO-app/app.html ## Features",
+  "main": "angular.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}
