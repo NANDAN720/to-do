@@ -1,25 +1,27 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path');
 const bodyParser = require('body-parser');
+const path = require('path');
+
 const app = express();
 
-// Connect to MongoDB
+// MongoDB connection
 mongoose.connect('mongodb://localhost:27017/todoapp', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 
+// Define Task schema
 const Task = mongoose.model('Task', {
-    text: String,
-    done: Boolean
+    taskDesc: String,
+    status: Boolean
 });
 
 // Middleware
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
 
-// API routes
+// API Routes
 app.get('/api/tasks', async (req, res) => {
     const tasks = await Task.find();
     res.json(tasks);
@@ -36,9 +38,15 @@ app.delete('/api/tasks/:id', async (req, res) => {
     res.sendStatus(200);
 });
 
+app.put('/api/tasks/:id', async (req, res) => {
+    await Task.findByIdAndUpdate(req.params.id, req.body);
+    res.sendStatus(200);
+});
+
 // Serve frontend
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'app.html'));
 });
 
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+// Start server
+app.listen(3000, () => console.log('Server running at http://localhost:3000'));
